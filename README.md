@@ -2,6 +2,11 @@
 
 > Register and receive push notifications
 
+# Fork changes
+This fork updates the FirebaseMessaging pod version from 2.0.0 to 4.0.0 to
+allow this plugin to work together with the cordova-plugin-firebase-analytics
+plugin, which otherwise fails with a FirebaseAnalytics version conflict.
+
 # Warning
 
 The links below take you to the version 2.x documentation which includes a
