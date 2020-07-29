@@ -28,9 +28,13 @@
 
 #import "PushPlugin.h"
 #import "AppDelegate+notification.h"
+
+@import Firebase; // For FirebaseMessaging pod 4.0.0
+/* Old code
 @import FirebaseInstanceID;
 @import FirebaseMessaging;
 @import FirebaseAnalytics;
+*/
 
 @implementation PushPlugin : CDVPlugin
 
@@ -53,7 +57,8 @@
 
 -(void)initRegistration;
 {
-    NSString * registrationToken = [[FIRInstanceID instanceID] token];
+    // NSString * registrationToken = [[FIRInstanceID instanceID] token]; // Old code
+    NSString * registrationToken = [FIRMessaging messaging].FCMToken; // For FirebaseMessaging pod 4.0.0
 
     if (registrationToken != nil) {
         NSLog(@"FCM Registration Token: %@", registrationToken);
@@ -81,7 +86,7 @@
 #if !TARGET_IPHONE_SIMULATOR
     // A rotation of the registration tokens is happening, so the app needs to request a new token.
     NSLog(@"The FCM registration token needs to be changed.");
-    [[FIRInstanceID instanceID] token];
+    // [[FIRInstanceID instanceID] token]; // Old code, removed for FirebaseMessaging pod 4.0.0
     [self initRegistration];
 #endif
 }
